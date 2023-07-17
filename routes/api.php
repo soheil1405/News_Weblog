@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\CommentsController;
+use App\Http\Controllers\NewsController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -14,6 +16,23 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+
+
+Route::get('/', function () {
+    return response()->json('heloow');
+});
+Route::apiResource('/news', NewsController::class);
+
+
+Route::prefix('comments')->group(function () {
+
+    // this route is for store new comment and also for store answer old comment
+    Route::post('/save', [CommentsController::class, 'store']);
+
+    // this route is for like comment and also for disslike comment
+    Route::post('/reaction', [CommentsController::class, 'reactionToComment']);
+
+    //accept comment
+    Route::put('/acceptComment/{comment}', [CommentsController::class, 'acceptComment']);
+    Route::delete('/destroy/{comment}', [CommentsController::class, 'destroy']);
 });
