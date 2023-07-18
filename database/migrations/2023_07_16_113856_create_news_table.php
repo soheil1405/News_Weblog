@@ -27,6 +27,14 @@ return new class extends Migration
             $table->unsignedBigInteger('viewCount')->default(0);
             $table->unsignedBigInteger('commentCount')->default(0);
 
+
+            
+            $table->unsignedInteger('likes')->default(0);
+            $table->unsignedInteger('disslikes')->default(0);
+
+
+            $table->longText('likeOrDisslikeJsonData')->nullable();
+
             $table->timestamps();
         });
     }

@@ -82,4 +82,67 @@ class news extends Model
     {
         $this->tags()->detach();
     }
+
+
+
+    public function submitReaction($reaction, $ip)
+    {
+
+        $reactionStatus = checkIfValueExistsInJson($ip, $this->likeOrDisslikeJsonData, $reaction);
+
+
+
+
+        switch ($reactionStatus['status']) {
+
+
+            case 1:
+                $this->likes = ($this->likes + 1);
+                $msg = "Liked";
+                break;
+            case -1:
+                $this->disslikes = ($this->disslikes + 1);
+                $msg = "dissLiked";
+                break;
+            case 11:
+                $this->likes = ($this->likes + 1);
+                $this->disslikes = ($this->disslikes - 1);
+                $msg = "your dissLike canceled and liked";
+
+                break;
+            case -11:
+                $this->likes = ($this->likes - 1);
+                $this->disslikes = ($this->disslikes + 1);
+                $msg = "your like canceled and dissLiked";
+                break;
+            case 111:
+                $this->likes = ($this->likes - 1);
+                $msg = "your like canceled ";
+                break;
+            case -111:
+                $this->disslikes = ($this->disslikes - 1);
+                $msg = "your dissLike canceled ";
+
+                break;
+            default:
+                $msg = "nothing happened";
+                break;
+        }
+
+
+        $this->likeOrDisslikeJsonData = $reactionStatus['json'];
+
+        $this->save();
+
+        return $msg;
+    }
+
+    
+    public function reactionStatus($ip)
+    {
+
+        $status = checkIfValueExistsInJson($ip, $this->likeOrDisslikeJsonData, null);
+
+        return $status;
+    }
 }

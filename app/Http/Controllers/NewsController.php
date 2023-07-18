@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\NewsReactionReq;
 use App\Models\news;
 use App\Http\Requests\StorenewsRequest;
 use App\Http\Resources\NewsIndexResource;
@@ -37,33 +38,33 @@ class NewsController extends Controller
         // try {
 
 
-            $NewsWithSampleTitle = news::where('title', $request->title)->first();
+        $NewsWithSampleTitle = news::where('title', $request->title)->first();
 
-            if ($NewsWithSampleTitle) {
-                return $this->error("You has been store a news with same title", 401);
-            }
+        if ($NewsWithSampleTitle) {
+            return $this->error("You has been store a news with same title", 401);
+        }
 
-            if ($request->file('image')) {
-                $imageName = $this->storeFile('image', $request->file('image'), 's3');
-            } else {
-                $imageName = env('DEFUALT_NEWS_IMG_NAME');
-            }
-
-
-            $slug = str_replace(" ", "-", $request->title);
-
-            $data =  array_merge($request->only(['title', 'pre_description', 'body']), ['image' => $imageName, 'slug' => $slug]);
-
-            $news = news::create($data);
+        if ($request->file('image')) {
+            $imageName = $this->storeFile('image', $request->file('image'), 's3');
+        } else {
+            $imageName = env('DEFUALT_NEWS_IMG_NAME');
+        }
 
 
-            if ($request->tags) {
+        $slug = str_replace(" ", "-", $request->title);
 
-                $tags = explode(",",  $request->tags);
+        $data = array_merge($request->only(['title', 'pre_description', 'body']), ['image' => $imageName, 'slug' => $slug]);
 
-                resolve(TagsController::class)->saveTagsAndConnectToNews($tags, $news);
-            }
-            return $this->Success($news);
+        $news = news::create($data);
+
+
+        if ($request->tags) {
+
+            $tags = explode(",", $request->tags);
+
+            resolve(TagsController::class)->saveTagsAndConnectToNews($tags, $news);
+        }
+        return $this->Success($news);
         // } catch (Exception $e) {
         //     return $this->error("Unexpected Error Happend", 401);
         // }
@@ -75,7 +76,7 @@ class NewsController extends Controller
 
         $news->increaseViewCount();
 
-        return  new ShowNewsResource($news);
+        return new ShowNewsResource($news);
     }
 
 
@@ -102,9 +103,9 @@ class NewsController extends Controller
                 $imageName = $news->image;
             }
 
-            $data =  array_merge($request->only(['title', 'pre_description', 'body']), ['image' => $imageName]);
+            $data = array_merge($request->only(['title', 'pre_description', 'body']), ['image' => $imageName]);
 
-            $news =  $news->update($data);
+            $news = $news->update($data);
 
             return $this->Success($news);
         } catch (Exception $e) {
@@ -134,5 +135,18 @@ class NewsController extends Controller
 
             return $this->error($e, 402);
         }
+    }
+
+
+
+    public function reactionToNews(NewsReactionReq $request)
+    {
+
+
+        $news = news::find($request->news_id);
+
+        $msg = $news->submitReaction($request->reaction, $request->ip());
+
+        return $this->Success($msg);
     }
 }

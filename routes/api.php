@@ -23,6 +23,9 @@ Route::get('/', function () {
 });
 Route::apiResource('/news', NewsController::class);
 
+// this route is for like comment and also for disslike comment
+Route::post('news/reaction', [NewsController::class, 'reactionToNews']);
+
 
 Route::prefix('comments')->group(function () {
 

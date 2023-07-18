@@ -24,6 +24,10 @@ class ShowNewsResource extends JsonResource
             'viewCount' => $this->viewCount,
             'commentCount' => $this->commentCount,
             'created_at' => MiladiToShamsi( $this->created_at),
+            'likes'=>$this->likes ,
+            'disslikes'=>$this->disslikes ,
+            
+            'reactionStatus'=>$this->reactionStatus($request->ip()),
             'comments'=>  CommentsResource::collection($this->availableComments) ,
             'tags'=>  tagsResource::collection($this->tags)
         ];

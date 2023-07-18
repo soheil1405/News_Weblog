@@ -15,12 +15,12 @@ class NewsIndexResource extends JsonResource
     {
         return [
             'title' => $this->title,
-            'slug'=>$this->slug ,
+            'slug' => $this->slug,
             'image' => $this->image,
             'pre_description' => $this->pre_description,
             'viewCount' => $this->viewCount,
             'commentCount' => $this->commentCount,
-            'created_at' => MiladiToShamsi( $this->created_at),
+            'created_at' => MiladiToShamsi($this->created_at),
         ];
     }
 
