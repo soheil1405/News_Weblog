@@ -27,7 +27,6 @@ class NewsController extends Controller
             $news = news::select('slug', 'title', 'image', 'pre_description', 'created_at', 'commentCount', 'created_at')->paginate(20);
         }
 
-
         return NewsIndexResource::collection($news);
     }
 
@@ -35,17 +34,17 @@ class NewsController extends Controller
     public function store(StorenewsRequest $request)
     {
 
-        try {
+        // try {
 
 
-            $NewsWithSampleTitle = news::where('title', "Like", "%" . $request->title . "%")->first();
+            $NewsWithSampleTitle = news::where('title', $request->title)->first();
 
             if ($NewsWithSampleTitle) {
                 return $this->error("You has been store a news with same title", 401);
             }
 
             if ($request->file('image')) {
-                $imageName = $this->storeFile('image', $request->file('image'), 'public');
+                $imageName = $this->storeFile('image', $request->file('image'), 's3');
             } else {
                 $imageName = env('DEFUALT_NEWS_IMG_NAME');
             }
@@ -65,9 +64,9 @@ class NewsController extends Controller
                 resolve(TagsController::class)->saveTagsAndConnectToNews($tags, $news);
             }
             return $this->Success($news);
-        } catch (Exception $e) {
-            return $this->error("Unexpected Error Happend", 401);
-        }
+        // } catch (Exception $e) {
+        //     return $this->error("Unexpected Error Happend", 401);
+        // }
     }
 
 
@@ -96,9 +95,9 @@ class NewsController extends Controller
 
             if ($request->file('image')) {
                 if ($news->image != env('DEFUALT_NEWS_IMG_NAME')) {
-                    $this->deleteFile($news->image, 'public');
+                    $this->deleteFile($news->image, 's3');
                 }
-                $imageName = $this->storeFile('image', $request->file('image'), 'public');
+                $imageName = $this->storeFile('image', $request->file('image'), 's3');
             } else {
                 $imageName = $news->image;
             }

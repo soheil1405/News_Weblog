@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
@@ -39,11 +40,11 @@ class Controller extends BaseController
     protected function storeFile($type, $file, $disk)
     {
 
-        $imageName =  $type . "/" . $file->getClientOriginalName();
+        $imageName =  $type . "/" . Carbon::now()->toDateTimeString(). $file->getClientOriginalName();
 
         Storage::disk($disk)->put($imageName, file_get_contents($file));
-
-        return $imageName;
+        $path = Storage::disk($disk)->url($imageName);
+        return  $path;
     }
 
 
