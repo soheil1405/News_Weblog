@@ -18,7 +18,7 @@ function MiladiToShamsi($date)
 //
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-function checkIfValueExistsInJson($ip, $likeOrDisslike, $json)
+function checkIfValueExistsInJson($ip,  $json, $likeOrDisslike = null)
 {
 
 
@@ -37,6 +37,15 @@ function checkIfValueExistsInJson($ip, $likeOrDisslike, $json)
         foreach ($data as $key => $value) {
 
             if ($key == $ip) {
+
+                if (is_null($likeOrDisslike)) {
+
+                    //inja yani faghat mige reaction dadi va reaction to in boode
+                    return $value;
+                }
+
+
+
                 if ($value != $likeOrDisslike) {
                     //in karbar ba in ip reaction dade bood vali meghdaresh fargh dasht ... pas meghdaresh avaz shod
 
@@ -47,7 +56,6 @@ function checkIfValueExistsInJson($ip, $likeOrDisslike, $json)
                     }
 
                     $newData[$ip] = $likeOrDisslike;
-
                 } else {
 
                     //in karbar ba in ip reaction dade bood va meghdaresh hamooon bood ... pas ye jooraei nazaresho bardashte va ma dige tooye json zakhirash nemikonim
@@ -67,6 +75,13 @@ function checkIfValueExistsInJson($ip, $likeOrDisslike, $json)
     }
 
 
+    if (is_null($likeOrDisslike)) {
+
+        //baraye gereftan vaziat reaction karbar be in (model : line 177 )
+        //inja yani faghat mige reaction dadi va reaction to in boode
+        return 0;
+    }
+
     if ($status == 0) {
 
         if ($likeOrDisslike == 1) {
@@ -77,8 +92,6 @@ function checkIfValueExistsInJson($ip, $likeOrDisslike, $json)
 
 
         $newData[$ip] = $likeOrDisslike;
-
-
     }
 
 

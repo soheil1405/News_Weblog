@@ -24,7 +24,7 @@ class CommentsResource extends JsonResource
             'likes'=>$this->likes ,
             'disslikes'=>$this->disslikes ,
             'likes'=>$this->likes ,
-            'likes'=>$this->likes ,
+            'ReactStatus'=>$this->reactionStatus($request->ip()),
             'answers'=> CommentsResource::collection($this->availableAnswers)
 
         ];

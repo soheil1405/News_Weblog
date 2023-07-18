@@ -122,7 +122,7 @@ class comments extends Model
     public function submitReaction($reaction, $ip)
     {
 
-        $reactionStatus = checkIfValueExistsInJson($ip, $reaction, $this->likeOrDisslikeJsonData);
+        $reactionStatus = checkIfValueExistsInJson($ip, $this->likeOrDisslikeJsonData, $reaction);
 
 
 
@@ -169,5 +169,13 @@ class comments extends Model
         $this->save();
 
         return $msg;
+    }
+
+    public function reactionStatus($ip)
+    {
+
+        $status = checkIfValueExistsInJson($ip, $this->likeOrDisslikeJsonData, null);
+
+        return $status;
     }
 }
