@@ -141,7 +141,7 @@ class news extends Model
     public function reactionStatus($ip)
     {
 
-    $status = checkIfValueExistsInJson($ip, $this->likeOrDisslikeJsonData, null);
+        $status = checkIfValueExistsInJson($ip, $this->likeOrDisslikeJsonData, null);
 
         return $status;
     }
