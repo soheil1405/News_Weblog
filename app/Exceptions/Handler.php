@@ -33,7 +33,7 @@ class Handler extends ExceptionHandler
 
         if($exception instanceof MethodNotAllowedHttpException){
             return response()->json([
-                'massage'=>' Method NotAllowed !!!  .... soheil fekr injasham karde :)' ,
+                'massage'=>' Method Not Allowed !!!  .... soheil fekr injasham karde :)' ,
 
             ] , 400);
         }
