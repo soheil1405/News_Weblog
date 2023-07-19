@@ -17,7 +17,7 @@ class ShowNewsResource extends JsonResource
 
         return [
             'title' => $this->title,
-            'slug' => $this->slug,
+
             'image' => $this->image,
             'body'=>$this->body,
             'pre_description' => $this->pre_description,

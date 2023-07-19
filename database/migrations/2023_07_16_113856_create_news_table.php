@@ -20,8 +20,8 @@ return new class extends Migration
 
             $table->string('title' , 50);
 
-            $table->string('slug' , 50);
 
+            
             $table->string('pre_description' , 100);
             $table->longText('body');
             $table->unsignedBigInteger('viewCount')->default(0);

@@ -17,7 +17,6 @@ class news extends Model
         'pre_description',
         'body',
         'image',
-        'slug',
         'viewCount',
         'commentCount',
 

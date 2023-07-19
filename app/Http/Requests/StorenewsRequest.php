@@ -20,7 +20,7 @@ class StorenewsRequest extends FormRequest
         return [
 
             'image' => 'nullable|mimes:png,jpg',
-            'title' => 'required|string|max:50|min:10|persian_alpha',
+            'title' => 'required|string|max:50|min:10|persian_alpha|unique:news',
             'pre_description' => 'required|string|min:30|max:100|persian_alpha',
             'body' => 'required|string',
         ];
@@ -38,7 +38,7 @@ class StorenewsRequest extends FormRequest
 
             'data'      => $validator->errors()
 
-        ]));
+        ],422));
     }
 
 

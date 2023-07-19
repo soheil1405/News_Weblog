@@ -16,8 +16,8 @@ class StorecommentsRequest extends FormRequest
         return [
             'news_id' => 'required|numeric|exists:news,id',
             'answered_to' => 'nullable|numeric|exists:comments,id',
-            'writer' => 'required|persian_alpha',
-            'comment_body' => 'required|string',
+            'writer' => 'required|string',
+            'comment_body' => 'required|persian_alpha',
         ];
     }
 

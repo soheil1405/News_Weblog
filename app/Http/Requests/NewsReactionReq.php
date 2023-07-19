@@ -14,7 +14,6 @@ class NewsReactionReq extends FormRequest
     public function rules(): array
     {
         return [
-            'news_id' => 'required|numeric|exists:news,id',
             'reaction'=>'required|numeric|in:1,-1'
         ];
     }
@@ -31,8 +30,8 @@ class NewsReactionReq extends FormRequest
 
             'message'   => 'Validation errors',
 
-            'data'      => $validator->errors()
+        'data'      => $validator->errors()
 
-        ]));
+        ] , 422));
     }
 }

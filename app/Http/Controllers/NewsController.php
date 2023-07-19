@@ -25,7 +25,7 @@ class NewsController extends Controller
 
             $news = $tag->news()->paginate(20);
         } else {
-            $news = news::select('slug', 'title', 'image', 'pre_description', 'created_at', 'commentCount', 'created_at')->paginate(20);
+            $news = news::select('title', 'image', 'pre_description', 'created_at', 'commentCount', 'created_at')->paginate(20);
         }
 
         return NewsIndexResource::collection($news);
@@ -47,13 +47,14 @@ class NewsController extends Controller
         if ($request->file('image')) {
             $imageName = $this->storeFile('image', $request->file('image'), 's3');
         } else {
+
             $imageName = env('DEFUALT_NEWS_IMG_NAME');
         }
 
 
-        $slug = str_replace(" ", "-", $request->title);
 
-        $data = array_merge($request->only(['title', 'pre_description', 'body']), ['image' => $imageName, 'slug' => $slug]);
+
+        $data = array_merge($request->only(['title', 'pre_description', 'body']), ['image' => $imageName]);
 
         $news = news::create($data);
 
@@ -139,14 +140,17 @@ class NewsController extends Controller
 
 
 
-    public function reactionToNews(NewsReactionReq $request)
+public function reactionToNews(NewsReactionReq $request, news $news)
     {
+        try {
 
+            $msg = $news->submitReaction($request->reaction, $request->ip());
 
-        $news = news::find($request->news_id);
+            return $this->Success($msg);
+        } catch (Exception $e) {
 
-        $msg = $news->submitReaction($request->reaction, $request->ip());
+            return $this->error($e, 402);
+        }
 
-        return $this->Success($msg);
     }
 }

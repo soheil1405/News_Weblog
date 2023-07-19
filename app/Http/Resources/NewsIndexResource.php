@@ -15,7 +15,7 @@ class NewsIndexResource extends JsonResource
     {
         return [
             'title' => $this->title,
-            'slug' => $this->slug,
+
             'image' => $this->image,
             'pre_description' => $this->pre_description,
             'viewCount' => $this->viewCount,
