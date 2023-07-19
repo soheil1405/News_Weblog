@@ -5,3 +5,7 @@
 5-run xampp and start apache and Mysql
 6-run php artisan migrate
 7-php artisan serve
+
+
+
+halesho bebarid
