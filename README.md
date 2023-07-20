@@ -19,15 +19,15 @@
         
     
 3. update news  : (put)  /api/news/{id}
- - just like store news
+     - just like store news
 5. get all news : (get)  /api/news
-   -get all data from NewsIndexResource
+     - get all data from NewsIndexResource
 6. show news    : (get)  /api/news/{id}
-   -get this news from ShowNewsResource
-   -also get your last reaction to this news (stored by ip)
-   -get all this news likes and disslike count
-   -get all accepted comments in from CommentResource and also their accepted answers and also their reaction count and also your reaction status to specif comment (by ip , just like news reactions)
-   -#attenion:just accepted comments will be shown
+     - get this news from ShowNewsResource
+     - also get your last reaction to this news (stored by ip)
+     -  get all this news likes and disslike count
+     - get all accepted comments in from CommentResource and also their accepted answers and also their reaction count and also your reaction status to specif comment (by ip , just like news reactions)
+     -#attenion:just accepted comments will be shown
    
 7. reaction to news : (post) /news/reaction/{news}
 
@@ -80,6 +80,6 @@
 
     
 12. comment reaction : (POST)  /api/comments/reaction
-    - it will work just like news reaction  (7) (by ip and json data)
+    - it will work just like news reaction  (5) (by ip and json data)
    
 13. Soheil Amini taghdim with Love
