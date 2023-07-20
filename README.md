@@ -54,6 +54,13 @@ http://127.0.0.1:8000/api/news
 
   - get all data from NewsIndexResource
 
+5. get news by tags : (gte)
+
+```bahs
+http://127.0.0.1:8000/api/news/tagId={tagid}
+```
+
+
 7. show news    : (get) 
 ```bash
 http://127.0.0.1:8000/api/news/{id}
