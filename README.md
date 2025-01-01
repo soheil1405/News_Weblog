@@ -1,4 +1,4 @@
-#installation
+# installation
 
 ```bash
  git pull https://github.com/soheil1405/News_Weblog.git
@@ -16,9 +16,9 @@
  php artisan test
 ```
 
-#apis
+# apis
 ##
-##news , news tags  , news rections(by ip)
+## news , news tags  , news rections(by ip)
 ##
 1. store news   : (post)
 
@@ -74,7 +74,7 @@ http://127.0.0.1:8000/api/news/{id}
 
 - get all accepted comments in from CommentResource and also their accepted answers and also their reaction count and also your reaction status to specif comment (by ip , just like news reactions)
 
--#attenion:just accepted comments will be shown
+-# attenion:just accepted comments will be shown
    
 8. reaction to news : (post)
 ```bash
@@ -117,7 +117,7 @@ http://127.0.0.1:8000/api/news/destroy/{news}
     
 ####
 
-#comments , accept comment , reaction to comment , answer commnet , delete comment
+# comments , accept comment , reaction to comment , answer commnet , delete comment
 
 9. store comment : (post)
 
